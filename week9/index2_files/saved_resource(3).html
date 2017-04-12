@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)http://duspviz.mit.edu/d3-workshop/examples/session1/d3_chart4_example.html/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>I'm Learning D3</title>
+	<script src="./d3.v4.min.js" charset="utf-8"></script>
+</head>
+<body>
+	<!-- Location for page elements. -->
+	<script>
+		// Our D3 code will go here.
+		var ratData = [ 40, 90, 30, 60 ]; // Rat data!
+
+		// Width and height of SVG
+		var w = 160;
+		var h = 180;
+
+		//Create SVG element
+		var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+
+		// Select and generate rectangle elements
+		svg.selectAll( "rect" )
+			.data( ratData )
+			.enter()
+			.append("rect")
+			.attr( "x", 30 )
+			.attr( "y", 0 )
+			.attr( "width", 20 )
+			.attr( "height", 100 )
+			.attr( "fill", "steelblue");
+	</script><svg width="160" height="180"><rect x="30" y="0" width="20" height="100" fill="steelblue"></rect><rect x="30" y="0" width="20" height="100" fill="steelblue"></rect><rect x="30" y="0" width="20" height="100" fill="steelblue"></rect><rect x="30" y="0" width="20" height="100" fill="steelblue"></rect></svg>
+
+</body></html>

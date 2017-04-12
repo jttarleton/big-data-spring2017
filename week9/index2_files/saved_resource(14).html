@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://duspviz.mit.edu/d3-workshop/examples/session1/d3_chart12_example.html/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>d3.js learning</title>
+	<script src="./d3.v4.min.js" charset="utf-8"></script>
+	<style type="text/css">
+		svg {
+			font: 10px sans-serif;
+			shape-rendering: crispEdges;
+		}
+
+		.axis path,
+		.axis line {
+			fill: none;
+			stroke: #000;
+		}
+
+		path.domain {
+			stroke: none;
+		}
+
+		.y .tick line {
+			stroke: #ddd;
+		}
+  </style>
+</head>
+<body>
+<script type="text/javascript">
+// Our D3 code will go here
+var ratData = [];
+
+d3.csv("/_assets/data/rat-squirrel-data.csv", function(d) {
+	return {
+		city: d.city,
+		rats: +d.rats,
+		squirrels: +d.squirrels
+	};
+}, function(error, rows) {
+	data = rows;
+	console.log(data);
+	createVisualization();
+});
+
+function createVisualization() {
+	// Setup svg using with margins
+	var margin = {bottom: 75, left: 15, right: 85};
+	var w = 200 - margin.left - margin.right;
+	var h = 175 - margin.bottom;
+
+	// get length of Array
+	var arrayLength = data.length; // length of dataset
+	var x_axisLength = 100; // length of x-axis in our layout
+	var y_axisLength = 100; // length of y-axis in our layout
+
+	var svg = d3.select("body")
+		.append("svg")
+		.attr("width", w + margin.left + margin.right)
+		.attr("height", h + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + ",10)");
+
+	// set up the properties for stack
+	var stack = d3.stack()
+    	.keys(["rats", "squirrels"])
+    	.order(d3.stackOrderDescending)
+    	.offset(d3.stackOffsetNone);
+
+    // transpose your data using stack
+	var series = stack(data);
+
+	// view the stack
+	console.log(series);
+
+	// setup the Y scale
+	var yScale = d3.scaleLinear()
+		.domain([0, d3.max(series, function(d) {
+			return d3.max(d, function(d) {
+				return d[1];
+			}); 
+		})])
+		.range([h, 0]);
+
+	// Set some colors into an array
+	var colors = ["#dfd6d6", "#d85f41"]; // choose colors
+
+	// Create groups for each series, rect elements for each segment 
+	var groups = svg.selectAll("g.city")
+		.data(series)
+		.enter().append("g")
+		.attr("class", "city")
+		.style("fill", function(d, i) {
+			return colors[i]; // color the rectangles
+		});
+
+	// Create the rectangles
+	var rect = groups.selectAll("rect")
+		.data(function(d) {
+			return d;
+		})
+		.enter()
+		.append("rect")
+		.attr("x", function(d,i) {
+			return i * (x_axisLength/arrayLength) + 30; // Set x coordinate of rectangle to index of data value (i) *25
+		})
+		.attr("y", function(d) {
+			return yScale(d[1]); // set base of rectangle
+		})
+		.attr("height", function(d) {
+			return yScale(d[0]) - yScale(d[1]); // set height of rectangle
+		})
+		.attr("width", (x_axisLength/arrayLength) - 1) // set width of rectangle
+		.on("mouseover", function() {
+			tooltip.style("display", null); // hide tooltip
+		})
+		.on("mousemove", function(d) {
+			var xPosition = d3.mouse(this)[0] - 15;
+			var yPosition = d3.mouse(this)[1] - 25;
+			tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+			tooltip.select("text").text(d.data.city + ": " + (d[1] - d[0])); // populate tooltip
+		})
+		.on("mouseout", function() {
+			tooltip.style("display", "none");
+		});
+
+	// Draw legend
+	var legend = svg.selectAll(".legend")
+		.data(colors)
+		.enter().append("g")
+		.attr("class", "legend")
+		.attr("transform", function(d, i) { return "translate(" + i * 50 + ", 110)"; });
+
+	legend.append("rect")
+		.attr("x", w - 70)
+		.attr("width", 18)
+		.attr("height", 18)
+		.style("fill", function(d, i) {return colors.slice().reverse()[i];});
+
+	legend.append("text")
+		.attr("x", w - 49)
+		.attr("y", 9)
+		.attr("dy", ".35em")
+		.style("text-anchor", "start")
+		.text(function(d, i) { 
+		switch (i) {
+			case 0: return "Rats";
+			case 1: return "Squirrels";
+		}
+	});
+
+	// Prep the tooltip bits, initial display is hidden
+	var tooltip = svg.append("g")
+		.attr("class", "tooltip")
+		.style("display", "none");
+	    
+	tooltip.append("text")
+		.attr("x", 15)
+		.attr("dy", "1.2em")
+		.style("text-anchor", "middle")
+		.attr("font-size", "12px");
+
+	// Create y-axis
+	svg.append("line")
+		.attr("x1", 30)
+		.attr("y1", 0)
+		.attr("x2", 30)
+		.attr("y2", 100)
+		.attr("stroke-width", 2)
+		.attr("stroke", "black");
+
+	// y-axis label
+	svg.append("text")
+		.attr("class", "y label")
+		.attr("text-anchor", "middle")
+		.text("Reports")
+		.attr("transform", "translate(20, 50) rotate(-90)")
+		.attr("font-size", "14px")
+		.attr("font-family", "'Open Sans', sans-serif");
+
+	// Create x-axis
+	svg.append("line")
+		.attr("x1", 30)
+		.attr("y1", 100)
+		.attr("x2", 130)
+		.attr("y2", 100)
+		.attr("stroke-width", 2)
+		.attr("stroke", "black");
+}
+
+</script>
+
+<svg width="200" height="175"><g transform="translate(15,10)"><g class="city" style="fill: rgb(223, 214, 214);"><rect x="30" y="71.42857142857143" height="28.57142857142857" width="24"></rect><rect x="55" y="35.71428571428571" height="64.28571428571429" width="24"></rect><rect x="80" y="78.57142857142857" height="21.42857142857143" width="24"></rect><rect x="105" y="57.142857142857146" height="42.857142857142854" width="24"></rect></g><g class="city" style="fill: rgb(216, 95, 65);"><rect x="30" y="50" height="21.42857142857143" width="24"></rect><rect x="55" y="0" height="35.71428571428571" width="24"></rect><rect x="80" y="71.42857142857143" height="7.142857142857139" width="24"></rect><rect x="105" y="28.57142857142857" height="28.571428571428577" width="24"></rect></g><g class="legend" transform="translate(0, 110)"><rect x="30" width="18" height="18" style="fill: rgb(216, 95, 65);"></rect><text x="51" y="9" dy=".35em" style="text-anchor: start;">Rats</text></g><g class="legend" transform="translate(50, 110)"><rect x="30" width="18" height="18" style="fill: rgb(223, 214, 214);"></rect><text x="51" y="9" dy=".35em" style="text-anchor: start;">Squirrels</text></g><g class="tooltip" style="display: none;"><text x="15" dy="1.2em" font-size="12px" style="text-anchor: middle;"></text></g><line x1="30" y1="0" x2="30" y2="100" stroke-width="2" stroke="black"></line><text class="y label" text-anchor="middle" transform="translate(20, 50) rotate(-90)" font-size="14px" font-family="&#39;Open Sans&#39;, sans-serif">Reports</text><line x1="30" y1="100" x2="130" y2="100" stroke-width="2" stroke="black"></line></g></svg></body></html>

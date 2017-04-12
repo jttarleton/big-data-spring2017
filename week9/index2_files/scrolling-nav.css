@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>DUSPviz</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/_assets/css/bootstrap.min.css">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link rel="stylesheet" href="/_assets/lib/scrolling-nav.css">
+		<link rel="stylesheet" href="/_assets/css/styles.css">
+    <link rel="stylesheet" href="/_assets/lib/prism.css">
+	</head>
+	<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/index.php" class="navbar-brand"><img class="img-responsive" id="logo-header" alt="duspviz-logo-main" src="/_assets/img/duspviz-navbar-codeglobe.png"></a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/index.php">HOME</a>
+        </li>
+        <li>
+          <a href="/index.php#calendar">CALENDAR</a>
+        </li>
+        <li>
+          <a href="/tutorials">TUTORIALS</a>
+        </li>
+        <li>
+          <a href="/resources">RESOURCES</a>
+        </li>
+		    <li>
+          <a href="/contact">CONTACT</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</nav>
+
+
+
+<!--main-->
+<div class="container">
+  <div class="row">
+    <!--left-->
+    <div class="col-md-3" id="leftCol">
+      <!-- Department Menu
+      ================================================== -->
+      <ul id="sidebar" class="accordion nav nav-department nav-tabs nav-stacked">
+      <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-question-circle"></i> Help</div>
+      <div class="panel-body">
+        <strong>OFFICE HOURS</strong><br>Tuesdays<br>3:00-5:00pm,<br>or by appointment.<hr>Location: Room 9-522<br><em>Computer Lab in Building 9, Floor 5</em><hr><a href="mailto:mjfoster@mit.edu?Subject=DUSPVIZ%20Inquiry"><i class="fa fa-envelope-o"></i> Send us an Email</a>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-calendar"></i> Upcoming Sessions
+      </div>
+      <div class="panel-body">
+        <p style="margin-top: 0px; margin-bottom: 0px"><strong>Spring 2017</strong><br><a href="/#calendar"><i class="fa fa-calendar"></i>  View Calendar</a></p>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-link"></i> Quick Links</div>
+      <div class="panel-body">
+        <li><a href="/tutorials"><i class="fa fa-pencil"></i>  Tutorials</a></li>
+        <li><a href="/resources"><i class="fa fa-link"></i>  Resources</a></li>
+        <li><a href="/#calendar"><i class="fa fa-calendar"></i>  Calendar</a></li>
+        <hr>
+        <li><a href="#top-page" class="page-scroll">Go to Top of This Page</a></li>
+      </div>
+    </div>
+    </ul>
+    <!--/nav-list menu-->
+  </div><!--/left-->
+<!--right--><div class="col-md-9 text-center">
+<p style="margin-top: 60px">Hello, this is DUSPviz.</p>
+
+<img src="_assets/img/globe-logo.png">
+
+<p>This site was recently redesigned, and it looks like the page you were looking for might have been moved!</p>
+
+<a href="http://duspviz.mit.edu">Cool. I want to make maps, visualizations, and graphics. Take me to the homepage!</a>
+
+<p>Please update your links! :)</p>
+
+</div><!--/right-->
+
+		<!-- Script References -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="/_assets/js/bootstrap.min.js"></script>
+		<script src="/_assets/lib/prism.js"></script>
+		<script src="/_assets/js/jquery.easing.min.js"></script>
+		<script src="/_assets/js/scrolling-nav.js"></script>
+		<script src="/_assets/js/scripts.js"></script>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-60447785-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+	</body>
+</html>
